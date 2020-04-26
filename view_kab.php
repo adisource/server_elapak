@@ -1,6 +1,6 @@
 <?php
 require_once('koneksi.php');
-$sql = "SELECT *FROM  data_kawasan" ;
+$sql = "SELECT * FROM kabupaten" ;
 $query = mysqli_query($conn,$sql);
 $array = array();
 if(mysqli_num_rows($query)>0){

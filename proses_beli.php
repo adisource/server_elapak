@@ -3,10 +3,11 @@ require_once('koneksi.php');
 
 $tgl_pesan=date("Y-m-d");
 $jam =$_POST['jam'];
-$sql = "SELECT * FROM orderdetail" ;
+$status =0;
+$sql = "SELECT * FROM detail_pesanan where status=0" ;
 $query = mysqli_query($conn,$sql);
 $array = array();
-if(mysqli_num_rows($query)>0){
+if(mysqli_num_rows($query)> 0){
     while($row = mysqli_fetch_assoc($query)){
         $array[]=$row;
     }
@@ -16,12 +17,12 @@ if(mysqli_num_rows($query)>0){
         $item_qty = $data['qty'];
         $item_kode = $data['kode_order'];
         $item_total=$data['total_harga'];
-
-        $sql_save = "INSERT INTO pesan ( tgl_pesan,jam,id,id_barang,qty,total,kode_order)  VALUES ('".$tgl_pesan."','".$jam."','".$item_idUser."','".$item_idBarang."','".$item_qty."','".$item_total."','".$item_kode."')";
+        $item_idSupyaer =$data['id_suplayer'];
+        $sql_save = "INSERT INTO pesan (tgl_pesan,jam,id,id_barang,id_suplayer,qty,total,kode_order,status)  VALUES ('".$tgl_pesan."','".$jam."','".$item_idUser."','".$item_idBarang."','".$item_idSupyaer."','".$item_qty."','".$item_total."','".$item_kode."','".$status."')";
         $query_save = mysqli_query($conn,$sql_save);
         if($query_save){
             echo "success";
-            $update=mysqli_query($conn," UPDATE orderdetail SET status=1 where id_barang ='$item_idBarang'");
+            $update=mysqli_query($conn," UPDATE detail_pesanan SET status=1 where id_barang ='$item_idBarang'");
         }else{
             echo "filed";
         }

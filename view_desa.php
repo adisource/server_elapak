@@ -1,6 +1,7 @@
 <?php
 require_once('koneksi.php');
-$sql = "SELECT dk.desa FROM data_kawasan AS dk " ;
+$id_kec = $_POST['id_kec'];
+$sql = "SELECT * FROM desa WHERE id_kec='$id_kec'" ;
 $query = mysqli_query($conn,$sql);
 $array = array();
 if(mysqli_num_rows($query)>0){
